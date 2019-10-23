@@ -1,5 +1,7 @@
 package Lesson_2;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,7 +24,16 @@ class DataBase {
     }
 
     static void createDB() {
+        String currentPath = new File("main.db").getAbsolutePath();
+        File dataBase = new File(currentPath);
 
+        if (!dataBase.exists()){
+            try {
+                dataBase.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     static void createTableStudents() {
@@ -48,7 +59,7 @@ class DataBase {
 
     static void insertStudent(String name, String score) {
         try {
-            String sql = String.format("INSERT INTO table (name, score) + VALUES('%s', '%s')", name, score);
+            String sql = String.format("INSERT INTO students (name, score) VALUES('%s', '%s')", name, score);
             stmt.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
