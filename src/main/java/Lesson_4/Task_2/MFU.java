@@ -1,8 +1,8 @@
 package Lesson_4.Task_2;
 
-public class MFU {
+class MFU {
 
-    static void print() {
-
+    synchronized static void print(String text) {
+        System.out.println(text);
     }
 }
