@@ -8,7 +8,13 @@ public class Tunnel extends Stage {
     Tunnel(int bandwidth) {
         this.length = 80;
         this.description = "Тоннель " + length + " метров";
+        this.finishLine = false;
         semaphore = new Semaphore(bandwidth);
+    }
+
+    @Override
+    public void setFinishLineTrue() {
+        this.finishLine = true;
     }
 
     @Override
@@ -24,6 +30,8 @@ public class Tunnel extends Stage {
             } finally {
                 System.out.println(c.getName() + " закончил этап: " + description);
                 semaphore.release();
+
+                if (finishLine) c.defineWinner();
             }
         } catch (Exception e) {
             e.printStackTrace();
